@@ -232,7 +232,8 @@ export default function DefaultTable() {
       
       <div className="flex gap-3 mb-3">
         <Input
-          placeholder="Seach User..."
+          className="md:text-base sm:text-sm text-xs md:w-auto w-60"
+          placeholder="Search User..."
           onChange={(e) => searchItems(e.target.value)}
         />
         <Form {...form}>
@@ -266,7 +267,7 @@ export default function DefaultTable() {
                   </FormItem>
                 )}
               />
-              <Button type="submit">Search</Button>
+              <Button className="md:text-base sm:text-sm text-xs" type="submit">Search</Button>
             </div>
           </form>
         </Form>
@@ -303,13 +304,13 @@ export default function DefaultTable() {
           {paginatedData ? renderDataTable(paginatedData) : null}
         </tbody>
       </table>
-      <nav className="flex justify-center gap-2 items-center mt-6">
-        <Label className="text-center">Rows per page</Label>
+      <nav className="flex justify-center gap-2 items-center mt-6 ">
+        <Label className="text-center md:text-base sm:text-sm text-xs">Rows per page</Label>
         <Select
           defaultValue="5"
           onValueChange={(val) => setPageSize(parseInt(val))}
         >
-          <SelectTrigger className="w-[80px]">
+          <SelectTrigger className="md:w-[80px] sm:w-[70px] w-[50px] md:text-base sm:text-sm text-xs">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -323,14 +324,14 @@ export default function DefaultTable() {
             </SelectGroup>
           </SelectContent>
         </Select>
-        <ul className="flex items-center space-x-2">
+        <ul className="flex items-center space-x-2 ">
           {pages.map((page) => (
             <li
               key={page}
               className={
                 page === currentPage
-                  ? "w-10 h-10 text-center py-2 rounded border border-gray-300 bg-blue-500 text-white cursor-pointer"
-                  : "w-10 h-10 text-center py-2 rounded border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 cursor-pointer"
+                  ? "md:w-10 md:h-10 w-8 h-8 text-center py-2 rounded border border-gray-300 bg-blue-500 text-white cursor-pointer md:text-base sm:text-sm text-xs"
+                  : "md:w-10 md:h-10 w-8 h-8 text-center py-2 rounded border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 cursor-pointer md:text-base sm:text-sm text-xs"
               }
             >
               <p onClick={() => pagination(page)}>{page}</p>

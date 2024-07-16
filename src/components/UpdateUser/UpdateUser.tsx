@@ -1,6 +1,5 @@
 import { IUser, IUpdateUser } from "@/types";
 import { useToast } from "@/components/ui/use-toast"
-import { DefaultTable, } from "@/components";
 // import { ImageUpload } from "@/components/ImageUpload";
 import { useState, useEffect } from "react";
 import { userApi } from "@/services";
@@ -53,11 +52,11 @@ const formSchema = z
   .object({
     email: z.string({ description: "Email cannot be empty" }).min(1, { message: "Email is required" }) // Makes sure the email field isn't empty
     .email({ message: "Email is invalid" }),
-    phoneNumber: z.string().min(8, { message: "Phone number must be at least 8 characters" }),
+    phoneNumber: z.string(),
     firstName: z.string().min(2, {
-      message: "Username must be at least 2 characters.",
+      message: "First name must be at least 2 characters.",
     }),
-    lastName: z.string({ description: "Please fill out last name." }),
+    lastName: z.string().min(1, { message: "Last name is required"}),
     role: z.string().min(4, {
       message: "Please select a role",
     }),
@@ -81,7 +80,7 @@ export interface IUpdateProps {
 
 
 const UpdataUser = ({ data, isOpen, setOpen }: IUpdateProps) => {
-
+  console.log("data update:", data)
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -290,7 +289,11 @@ const UpdataUser = ({ data, isOpen, setOpen }: IUpdateProps) => {
                     className="cursor-pointer group-hover:opacity-90 rounded-md w-40 h-40 mx-auto mt-5"
                     src={imageUrl}
                   />
-                ) : (
+                ) : ( data.image? 
+                  <img
+                    className="cursor-pointer group-hover:opacity-90 rounded-md w-40 h-40 mx-auto mt-5"
+                    src={data.image}
+                  />:
                   <ImagePlus className="mx-auto mt-5" size={120} />
                 )}
                 <div className="absolute opacity-90 cursor-pointer top-[50%] left-[19%] text-white bg-gray-500 px-2 py-1.5 rounded-md mx-auto hidden group-hover:block">

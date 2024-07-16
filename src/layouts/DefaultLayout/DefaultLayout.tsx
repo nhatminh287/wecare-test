@@ -19,39 +19,39 @@ const DefaultLayout = ({ children }: { children: JSX.Element }) => {
       <div className="bg-white h-full w-full flex">
         <Sidebar>
           <SidebarItem
-            icon={<span className="hidden md:block"><LayoutDashboard size={20} /></span>}
+            icon={<LayoutDashboard className="md:w-[20px] md:h-[20px] w-4 h-4" />}
             text="Dashboard"
             />
           <div className="bg-blue-100 text-white" onClick={()=>navigate('/userinfo')}>
             <SidebarItem
-              icon={<span className="hidden md:block">
-                <UserCircle size={20} />
-              </span>}
+              icon={
+                <UserCircle className="md:w-[20px] md:h-[20px] w-4 h-4" />
+              }
               text="Users"
               />
           </div>
           <SidebarItem
-            icon={<span className="hidden md:block"><Package size={20} /></span>}
+            icon={<Package className="md:w-[20px] md:h-[20px] w-4 h-4" />}
             text="Transport"
             />
           <SidebarItem
-            icon={<span className="hidden md:block"><Boxes size={20} /></span>}
+            icon={<Boxes className="md:w-[20px] md:h-[20px] w-4 h-4" />}
             text="Stock"
             />
           <SidebarItem
-            icon={<span className="hidden md:block"><Calendar size={20} /></span>}
+            icon={<Calendar className="md:w-[20px] md:h-[20px] w-4 h-4" />}
             text="Appointments"
             />
           <SidebarItem
-            icon={<span className="hidden md:block"><BarChart size={20} /></span>}
+            icon={<BarChart className="md:w-[20px] md:h-[20px] w-4 h-4" />}
             text="Staticstics"
             />
           <SidebarItem
-            icon={<span className="hidden md:block"><Receipt size={20} /></span>}
+            icon={<Receipt className="md:w-[20px] md:h-[20px] w-4 h-4" />}
             text="Revenue"
             />
           <SidebarItem
-            icon={<span className="hidden md:block"><Settings size={20} /></span>}
+            icon={<Settings className="md:w-[20px] md:h-[20px] w-4 h-4" />}
             text="Settings"
             />
         </Sidebar>

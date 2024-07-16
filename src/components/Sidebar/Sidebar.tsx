@@ -9,7 +9,7 @@ export default function Sidebar({ children } : any) {
   const [expanded, setExpanded] = useState(true)
   
   return (
-    <aside className="h-screen md:w-[288px] w-[150px]">
+    <aside className={`h-screen ${expanded? "md:w-[288px] w-[150px]" : ""}`}>
       <nav className="h-full flex flex-col bg-white border-r shadow-sm">
         <div className="p-4 pb-2 flex justify-between items-center">
           <img
@@ -31,11 +31,11 @@ export default function Sidebar({ children } : any) {
           <ul className="flex-1 px-3">{children}</ul>
         </SidebarContext.Provider>
 
-        <div className="border-t flex p-3">
+        <div className="border-t flex sm:p-3 flex-wrap p-0">
           <img
             src={User}
             alt=""
-            className="w-10 h-10 rounded-md"
+            className="w-10 h-10 rounded-md mx-auto"
           />
           <div
             className={`
@@ -44,7 +44,7 @@ export default function Sidebar({ children } : any) {
           `}
           >
             <div className="leading-4">
-              <h4 className="font-semibold">User admin</h4>
+              <h4 className="font-semibold text-center">User admin</h4>
               <span className="text-xs text-gray-600">adminUser@gmail.com</span>
             </div>
             <MoreVertical size={20} />

@@ -52,11 +52,11 @@ const formSchema = z
   .object({
     email: z.string().min(1, { message: "Email is required" }) // Makes sure the email field isn't empty
     .email({ message: "Email is invalid" }),
-    phoneNumber: z.string({ description: "Phone number cannot be empty" }).min(8, { message: "Phone number must be at least 8 characters" }),
+    phoneNumber: z.string(),
     firstName: z.string().min(2, {
-      message: "Username must be at least 2 characters.",
+      message: "First name must be at least 2 characters.",
     }),
-    lastName: z.string({ description: "Please fill out last name." }),
+    lastName: z.string().min(1, { message: "Last name is required" }),
     role: z.string().min(4, {
       message: "Please select a role",
     }),
@@ -294,7 +294,7 @@ const UserInfo = () => {
       </Dialog>
       <div className="container mx-auto py-8">
         <div className="flex justify-end mb-3">
-          <Button onClick={() => setOpen(true)}>Add new user</Button>
+          <Button className="md:text-base sm:text-sm text-xs" onClick={() => setOpen(true)}>Add new user</Button>
           </div>
         <DefaultTable />
       </div>                

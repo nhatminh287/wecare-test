@@ -23,7 +23,7 @@ const ExportToExcel = ({ apiData, fileName }: IDataExport) => {
   };
 
   return (
-    <Button onClick={(e) => exportToCSV(apiData, fileName)}>Export to excel</Button>
+    <Button className="md:text-base sm:text-sm text-xs" onClick={(e) => exportToCSV(apiData, fileName)}>Export to excel</Button>
   );
 };
 
