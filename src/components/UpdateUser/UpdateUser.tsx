@@ -1,4 +1,4 @@
-import { IUser, IAddUserdata } from "@/types";
+import { IUser, IUpdateUser } from "@/types";
 import { useToast } from "@/components/ui/use-toast"
 import { DefaultTable, } from "@/components";
 // import { ImageUpload } from "@/components/ImageUpload";
@@ -46,6 +46,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { PasswordInput } from "@/components/PasswordInput/PasswordInput";
+
 type ImageUploadType = File | null;
 
 const formSchema = z
@@ -71,22 +72,29 @@ const formSchema = z
     message: "Password didn't match.",
   });
 
-const UserInfo = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      email: "",
-      phoneNumber: "",
-      firstName: "",
-      lastName: "",
-      role: "",
-      password: "",
-      confirmPassword: "",
-    },
-  });
+export interface IUpdateProps {
+    data: IUser;
+    isOpen: boolean;
+    setOpen(value: boolean): void;
+}
 
-  const [open, setOpen] = useState(false)
-  //Xử lý đẩy ảnh lên firebase
+
+const UpdataUser = ({ data, isOpen, setOpen }: IUpdateProps) => {
+
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+          email: data.email,
+          phoneNumber: data.phoneNumber,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          role: data.role,
+          password: "",
+          confirmPassword: "",
+        },
+      });
+
+      //Xử lý đẩy ảnh lên firebase
   const [imageUpload, setImageUpload] = useState<ImageUploadType>(null);
 
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -106,43 +114,48 @@ const UserInfo = () => {
       return url;
     };
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    console.log('data', values)
-    const logoUrl = await uploadFile();
-    const updateInfo: IAddUserdata = {
-      email: values.email,
-      phoneNumber: values.phoneNumber,
-      firstName: values.firstName,
-      lastName: values.lastName,
-      role: values.role,
-      password: values.password,
-      image: logoUrl
-    }
-    toast({
-      title: "Loading...",
-      description: "A few seconds to be completed!",
-    })
-    const res = await userApi.addUser(updateInfo)
-      if (res) {
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        console.log(values);
+        console.log('data', values)
+        const logoUrl = await uploadFile();
+        const updateInfo: IUpdateUser = {
+          id: data.id,
+          email: values.email,
+          phoneNumber: values.phoneNumber,
+          firstName: values.firstName,
+          lastName: values.lastName,
+          role: values.role,
+          password: values.password,
+          image: logoUrl
+        }
         toast({
-          title: "Successful",
-          description: "Your item was added!",
+          title: "Loading...",
+          description: "A few seconds to be completed!",
         })
+        const res = await userApi.updateUser(updateInfo)
+          if (res) {
+            toast({
+              title: "Successful",
+              description: "Your item was updated!",
+            })
+          }
       }
-  }
+
   return (
-    <div className="md:text-base sm:text-sm text-xs">
-      <Dialog open={open} onOpenChange={setOpen}>
+    <div>
+      <Dialog open={isOpen} onOpenChange={setOpen}>
 
         <DialogContent className="sm:max-w-[700px]">
           <DialogHeader>
-            <DialogTitle>Add new user</DialogTitle>
+            <DialogTitle>Update user</DialogTitle>
           </DialogHeader>
           <div className="flex gap-10">
             <div>
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-8"
+                >
                   <div className="flex gap-2">
                     <FormField
                       control={form.control}
@@ -267,7 +280,9 @@ const UserInfo = () => {
               </Form>
             </div>
             <div className="basis-1/3">
-              <div className="text-center mb-2"><Label >Add user image</Label></div>
+              <div className="text-center mb-2">
+                <Label>Add user image</Label>
+              </div>
               <label htmlFor="upload-image" className="relative group">
                 {imageUrl ? (
                   <img
@@ -275,7 +290,7 @@ const UserInfo = () => {
                     src={imageUrl}
                   />
                 ) : (
-                  <ImagePlus className="mx-auto mt-5" size={120}/>
+                  <ImagePlus className="mx-auto mt-5" size={120} />
                 )}
                 <div className="absolute opacity-90 cursor-pointer top-[50%] left-[19%] text-white bg-gray-500 px-2 py-1.5 rounded-md mx-auto hidden group-hover:block">
                   Add image
@@ -291,14 +306,8 @@ const UserInfo = () => {
           </div>
         </DialogContent>
       </Dialog>
-      <div className="container mx-auto py-8">
-        <div className="flex justify-end mb-3">
-          <Button onClick={() => setOpen(true)}>Add new user</Button>
-          </div>
-        <DefaultTable />
-      </div>                
     </div>
   );
 };
 
-export default UserInfo;
+export default UpdataUser;

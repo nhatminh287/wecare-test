@@ -1,2 +1,5 @@
 export * from './Sidebar';
-export * from './DataTable';
+export * from './DefaultTable';
+export * from './ImageUpload';
+export * from './ExportToExcel';
+export * from './UpdateUser';

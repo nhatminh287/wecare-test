@@ -1,12 +1,11 @@
 import { DefaultLayout } from '@/layouts';
 import {
-  UserInfo
+  UserInfo,
 } from '@/pages';
 
 export const PATHS = {
-  HOME: '/',
+  HOME: '/userinfo',
   USERINFO: '/userinfo',
-  
 };
 
 export const ROUTES = [

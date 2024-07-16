@@ -9,7 +9,7 @@ export default function Sidebar({ children } : any) {
   const [expanded, setExpanded] = useState(true)
   
   return (
-    <aside className="h-screen">
+    <aside className="h-screen md:w-[288px] w-[150px]">
       <nav className="h-full flex flex-col bg-white border-r shadow-sm">
         <div className="p-4 pb-2 flex justify-between items-center">
           <img
@@ -61,9 +61,9 @@ export function SidebarItem({ icon, text, active, alert }: any) {
   return (
     <li
       className={`
-        relative flex items-center py-2 px-3 my-1
+        relative flex items-center py-2 md:px-3 px-0 my-1
         font-medium rounded-md cursor-pointer
-        transition-colors group
+        transition-colors group md:text-base sm:text-sm text-xs
         ${
           active
             ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
