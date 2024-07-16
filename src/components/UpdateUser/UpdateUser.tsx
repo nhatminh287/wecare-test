@@ -51,8 +51,9 @@ type ImageUploadType = File | null;
 
 const formSchema = z
   .object({
-    email: z.string({ description: "Email cannot be empty" }),
-    phoneNumber: z.string({ description: "Phone number cannot be empty" }),
+    email: z.string({ description: "Email cannot be empty" }).min(1, { message: "Email is required" }) // Makes sure the email field isn't empty
+    .email({ message: "Email is invalid" }),
+    phoneNumber: z.string().min(8, { message: "Phone number must be at least 8 characters" }),
     firstName: z.string().min(2, {
       message: "Username must be at least 2 characters.",
     }),
