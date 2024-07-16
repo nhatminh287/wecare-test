@@ -103,6 +103,20 @@ const UpdataUser = ({ data, isOpen, setOpen }: IUpdateProps) => {
     setImageUrl(imageUpload ? URL.createObjectURL(imageUpload) : null);
   }, [imageUpload]);
 
+  useEffect(() => {
+    handleSetValue();
+  }, [data]);
+
+  const handleSetValue = () => {
+    if (data){
+      form.setValue('email', data.email);
+      form.setValue('phoneNumber', data.phoneNumber);
+      form.setValue('firstName', data.firstName);
+      form.setValue('lastName', data.lastName);
+      form.setValue('role', data.role);
+    }
+  }
+
     //Xử lý đẩy ảnh lên firebase
     const uploadFile = async () => {
       if (imageUpload == null) return '';

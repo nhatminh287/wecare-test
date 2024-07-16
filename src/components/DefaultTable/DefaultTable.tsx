@@ -180,11 +180,11 @@ export default function DefaultTable() {
     }
   };
 
-  const handleEditUser = (user: IUser) => {
+  const handleEditUser = async (user: IUser) => {
     setCurrentUser(user);
     setOpen(true);
   };
-
+  
   const renderDataTable = (userdata: IUser[]) => {
     return (
       <>
