@@ -4,15 +4,22 @@ import {
 } from '@/pages';
 
 export const PATHS = {
-  HOME: '/userinfo',
+  HOME: '/',
   USERINFO: '/userinfo',
 };
 
 export const ROUTES = [
   
   {
+    path: PATHS.HOME,
+    title: 'User Info',
+    layout: DefaultLayout,
+    element: UserInfo,
+    children: [],
+  },
+  {
     path: PATHS.USERINFO,
-    title: 'Nearby cities recommendation',
+    title: 'User Info',
     layout: DefaultLayout,
     element: UserInfo,
     children: [],
